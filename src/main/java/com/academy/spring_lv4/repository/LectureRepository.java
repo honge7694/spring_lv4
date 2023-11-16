@@ -12,11 +12,10 @@ import java.util.Optional;
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
     Optional<Lecture> findLectureByLectureId(Long lectureId);
-    Lecture findLectureByLectureIdOrderByCreatedAt(Long lectureId);
+    Optional<Lecture> findLectureByLectureIdOrderByCreatedAt(Long lectureId);
 
     List<Lecture> findLecturesByTeacherId(Long teacherId);
 
-    //List<Lecture> findLecturesByCategory(String category);
     Page<Lecture> findLecturesByCategory(String category, Pageable pageable);
 
 

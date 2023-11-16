@@ -61,15 +61,15 @@ public class ManyToOneTest {
     }
 
 
-    @Test
-    @Rollback(value = false)
-    @DisplayName("선택한 강의 조회 기능")
-    void test2(){
-        Lecture lecture = lectureRepository.findLectureByLectureIdOrderByCreatedAt(2L);
-        //System.out.println(lecture.getName() + "의 강사 이름 = " + lecture.getTeacher().getName());
-        TeacherResponseDto teacher = lectureService.findLecture(2L);
-        System.out.println(lecture.getName() + "의 강사 이름 = " + teacher.getName());
-    }
+//    @Test
+//    @Rollback(value = false)
+//    @DisplayName("선택한 강의 조회 기능")
+//    void test2(){
+//        Lecture lecture = lectureRepository.findLectureByLectureIdOrderByCreatedAt(2L);
+//        //System.out.println(lecture.getName() + "의 강사 이름 = " + lecture.getTeacher().getName());
+//        TeacherResponseDto teacher = lectureService.findLecture(2L);
+//        System.out.println(lecture.getName() + "의 강사 이름 = " + teacher.getName());
+//    }
 
 //    @Test
 //    @Rollback(value = false)

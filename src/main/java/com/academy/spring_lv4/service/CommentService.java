@@ -25,7 +25,7 @@ public class CommentService {
         Lecture lecture = lectureRepository.findLectureByLectureId(lectureId).orElseThrow(
                 () -> new IllegalArgumentException("해당 강의가 없습니다.")
         );
-        System.out.println("lecture.getName() = " + lecture.getName());
+
         Comment comment = new Comment(requestDto, user);
 
         comment.setLecture(lecture);
