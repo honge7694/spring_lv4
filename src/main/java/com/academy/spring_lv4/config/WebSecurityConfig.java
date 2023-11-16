@@ -1,11 +1,14 @@
 package com.academy.spring_lv4.config;
 
 
+import com.academy.spring_lv4.entity.UserRoleEnum;
 import com.academy.spring_lv4.jwt.JwtUtil;
 import com.academy.spring_lv4.security.JwtAuthenticationFilter;
 import com.academy.spring_lv4.security.JwtAuthorizationFilter;
 import com.academy.spring_lv4.security.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity // Spring Security 지원을 가능하게 함
 @RequiredArgsConstructor
+@Slf4j(topic = "SecurityConfig")
 public class WebSecurityConfig {
 
     private final JwtUtil jwtUtil;
@@ -66,9 +70,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll() // 메인 페이지 요청 허가
                         .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // swagger
+                        .requestMatchers("/teachers/**").hasAuthority(UserRoleEnum.Authority.ADMIN)
+                        .requestMatchers("/lecture/admin/**").hasAuthority(UserRoleEnum.Authority.ADMIN)
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
-
 
         // 필터 관리
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
