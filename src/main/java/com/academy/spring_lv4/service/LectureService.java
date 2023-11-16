@@ -4,17 +4,22 @@ import com.academy.spring_lv4.dto.lecture.LectureExcludeNumberResponse;
 import com.academy.spring_lv4.dto.lecture.LecturePureResponseDto;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
-import com.academy.spring_lv4.entity.Lecture;
-import com.academy.spring_lv4.entity.LectureCategoryEnum;
-import com.academy.spring_lv4.entity.Teacher;
+import com.academy.spring_lv4.entity.*;
 import com.academy.spring_lv4.repository.LectureRepository;
+import com.academy.spring_lv4.repository.LikeRepository;
 import com.academy.spring_lv4.repository.TeacherRepository;
+import com.academy.spring_lv4.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +27,8 @@ public class LectureService {
 
     private final LectureRepository lectureRepository;
     private final TeacherRepository teacherRepository;
+    private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
 
     public LectureResponseDto createLecture(LectureRequestDto requestDto) {
         // dto -> entity
@@ -58,4 +65,27 @@ public class LectureService {
     }
 
 
+    public ResponseEntity likeLecture(Long lectureId, Long userId) {
+
+        // 강의 확인
+        Lecture lecture = lectureRepository.findById(lectureId)
+                .orElseThrow(() -> new EntityNotFoundException("강의를 찾을 수 없습니다."));
+
+        // 유저 확인
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없습니다."));
+
+        // 좋아요 확인
+        Optional<Like> like = likeRepository.findByLectureIdAndUserId(lecture, user);
+
+        if (like.isPresent()) {
+            // 좋아요 취소
+            likeRepository.delete(like.get());
+            return ResponseEntity.status(HttpStatus.OK).body("좋아요를 취소했습니다.");
+        }
+
+        Like newLike = new Like(lecture, user);
+        likeRepository.save(newLike);
+        return ResponseEntity.status(HttpStatus.OK).body("좋아요를 눌렀습니다.");
+    }
 }
