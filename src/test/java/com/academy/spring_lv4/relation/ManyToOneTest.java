@@ -71,17 +71,17 @@ public class ManyToOneTest {
         System.out.println(lecture.getName() + "의 강사 이름 = " + teacher.getName());
     }
 
-//    @Test
-//    @Rollback(value = false)
-//    @DisplayName("강의에 댓글 달기")
-//    void test3(){
-//        CommentRequestDto commentRequestDto = new CommentRequestDto();
-//        commentRequestDto.setComment("해당 강의 잘들었습니다.");
-//        ResponseEntity test = commentService.registerComment(6L, commentRequestDto);
-//
-//        System.out.println(test);
-//
-//    }
+    @Test
+    @Rollback(value = false)
+    @DisplayName("강의에 댓글 달기")
+    void test3(){
+        CommentRequestDto commentRequestDto = new CommentRequestDto();
+        commentRequestDto.setComment("해당 강의 잘들었습니다.");
+        ResponseEntity test = commentService.registerComment(6L, commentRequestDto);
+
+        System.out.println(test);
+
+    }
 
 
 }

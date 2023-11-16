@@ -3,7 +3,6 @@ package com.academy.spring_lv4.controller;
 import com.academy.spring_lv4.dto.comment.CommentRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
-import com.academy.spring_lv4.entity.Comment;
 import com.academy.spring_lv4.security.UserDetailsImpl;
 import com.academy.spring_lv4.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +20,9 @@ public class CommantController {
 
     @PostMapping("/{lectureId}/comment")
     public ResponseEntity registerComment(@PathVariable Long lectureId,
-                                                   @RequestBody CommentRequestDto requestDto,
-                                                   @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return commentService.registerComment(lectureId, requestDto, userDetails.getUser());
+                                          @RequestBody CommentRequestDto requestDto,
+                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        return commentService.registerComment(lectureId, requestDto);
     }
 }
