@@ -53,8 +53,8 @@ public class LectureService {
     }
 
     private Lecture findLecture(Long id) {
-        return (lectureRepository.findById(id)
-                .orElseThrow(() -> new NullPointerException("강의가 존재하지 않습니다.")));
+        return lectureRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("강의가 존재하지 않습니다."));
     }
 
 

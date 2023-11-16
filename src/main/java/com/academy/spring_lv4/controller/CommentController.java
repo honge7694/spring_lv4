@@ -14,10 +14,18 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     private final CommentService commentService;
+
     @PostMapping("/{lectureId}")
     public ResponseEntity createComment(@PathVariable Long lectureId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Long userId = userDetails.getUser().getId();
         return commentService.createComment(lectureId, requestDto, userId);
     }
+
+    @PutMapping("{commentId}")
+    public ResponseEntity editComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return commentService.editComment(commentId, requestDto, userId);
+    }
+
 
 }

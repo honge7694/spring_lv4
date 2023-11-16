@@ -7,10 +7,12 @@ import com.academy.spring_lv4.entity.User;
 import com.academy.spring_lv4.repository.CommentRepository;
 import com.academy.spring_lv4.repository.LectureRepository;
 import com.academy.spring_lv4.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +41,23 @@ public class CommentService {
         commentRepository.save(comment);
 
         return ResponseEntity.status(HttpStatus.OK).body("댓글을 작성하였습니다.");
+    }
+
+    @Transactional
+    public ResponseEntity editComment(Long commentId, CommentRequestDto requestDto, Long userId) {
+        // 댓글 찾기
+        Comment comment = findByComment(commentId);
+
+        if (userId != comment.getUserId().getId()) {
+            throw new IllegalArgumentException("댓글을 작성한 유저가 아닙니다.");
+        }
+
+        comment.update(requestDto.getContents());
+        return ResponseEntity.status(HttpStatus.OK).body("댓글을 수정하였습니다.");
+    }
+
+    private Comment findByComment(Long id) {
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("댓글을 찾지 못했습니다."));
     }
 }

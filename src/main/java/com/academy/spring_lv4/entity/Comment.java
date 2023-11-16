@@ -29,4 +29,8 @@ public class Comment {
     public Comment(CommentRequestDto requestDto) {
         this.contents = requestDto.getContents();
     }
+
+    public void update(String contents) {
+        this.contents = contents;
+    }
 }
