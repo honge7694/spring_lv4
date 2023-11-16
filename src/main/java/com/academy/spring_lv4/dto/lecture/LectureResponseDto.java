@@ -1,14 +1,14 @@
 package com.academy.spring_lv4.dto.lecture;
 
+import com.academy.spring_lv4.dto.teacher.TeacherExcludeNumberResponseDto;
+import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.entity.Lecture;
 import com.academy.spring_lv4.entity.LectureCategoryEnum;
 import com.academy.spring_lv4.entity.Teacher;
 import lombok.Getter;
 
-import java.util.Optional;
-
 @Getter
-public class LectureTeacherResponseDto {
+public class LectureResponseDto {
     private Long id;
     private String name;
     private String introduce;
@@ -16,7 +16,7 @@ public class LectureTeacherResponseDto {
     private int price;
     private Teacher teacher;
 
-    public LectureTeacherResponseDto(Lecture lecture) {
+    public LectureResponseDto(Lecture lecture) {
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.introduce = lecture.getIntroduce();

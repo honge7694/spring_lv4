@@ -1,7 +1,8 @@
 package com.academy.spring_lv4.service;
 
+import com.academy.spring_lv4.dto.lecture.LectureExcludeNumberResponse;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
-import com.academy.spring_lv4.dto.lecture.LectureTeacherResponseDto;
+import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.entity.Lecture;
 import com.academy.spring_lv4.entity.Teacher;
 import com.academy.spring_lv4.repository.LectureRepository;
@@ -16,7 +17,7 @@ public class LectureService {
     private final LectureRepository lectureRepository;
     private final TeacherRepository teacherRepository;
 
-    public LectureTeacherResponseDto createLecture(LectureRequestDto requestDto) {
+    public LectureResponseDto createLecture(LectureRequestDto requestDto) {
         // dto -> entity
         Lecture lecture = new Lecture(requestDto);
 
@@ -28,11 +29,11 @@ public class LectureService {
         lecture.setTeacher(teacher);
 
         // DB 저장 후 반환
-        return new LectureTeacherResponseDto(lectureRepository.save(lecture));
+        return new LectureResponseDto(lectureRepository.save(lecture));
     }
 
-    public LectureTeacherResponseDto getLecture(Long id) {
-        return new LectureTeacherResponseDto(findLecture(id));
+    public LectureExcludeNumberResponse getLecture(Long id) {
+        return new LectureExcludeNumberResponse(findLecture(id));
     }
 
     private Lecture findLecture(Long id) {
