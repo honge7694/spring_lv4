@@ -21,14 +21,14 @@ public class User {
     private String phoneNumber;
     private String address;
     @Enumerated(value = EnumType.STRING)
-    private UserRoleEnum auth;
+    private UserRoleEnum role;
 
-    public User(String email, String password, char gender, String phoneNumber, String address, UserRoleEnum auth) {
+    public User(String email, String password, char gender, String phoneNumber, String address, UserRoleEnum role) {
         this.email = email;
         this.password = password;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.auth = auth;
+        this.role = role;
     }
 }

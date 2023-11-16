@@ -23,13 +23,13 @@ public class UserService {
         char gender = requestDto.getGender();
         String phoneNumber = requestDto.getPhoneNumber();
         String address = requestDto.getAddress();
-        UserRoleEnum auth = requestDto.getAuth();
+        UserRoleEnum role = requestDto.getAuth();
 
         // 이메일 중복 확인
         userRepository.findByEmail(email).ifPresent((existedUser) -> {throw new IllegalArgumentException("에러 발생");});
 
         // 유저 생성
-        User user = new User(email, password, gender, phoneNumber, address, auth);
+        User user = new User(email, password, gender, phoneNumber, address, role);
         userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.OK).body("회원가입을 성공했습니다.");
