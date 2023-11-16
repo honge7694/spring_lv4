@@ -23,7 +23,12 @@ public class Comment {
     @JoinColumn(name="lecture_id")
     private Lecture lecture;
 
-    public Comment(CommentRequestDto requestDto) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
+    public Comment(CommentRequestDto requestDto, User user) {
         this.comment = requestDto.getComment();
+        this.user = user;
     }
 }
