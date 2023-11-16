@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.util.Optional;
 
 @Getter
-public class LectureResponseDto {
+public class LectureTeacherResponseDto {
     private Long id;
     private String name;
     private String introduce;
@@ -16,7 +16,7 @@ public class LectureResponseDto {
     private int price;
     private Teacher teacher;
 
-    public LectureResponseDto(Lecture lecture) {
+    public LectureTeacherResponseDto(Lecture lecture) {
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.introduce = lecture.getIntroduce();
@@ -24,14 +24,4 @@ public class LectureResponseDto {
         this.category = lecture.getCategory();
         this.teacher = lecture.getTeacher();
     }
-
-    public LectureResponseDto(Lecture lecture, Optional<Teacher> teacher) {
-        this.id = lecture.getId();
-        this.name = lecture.getName();
-        this.introduce = lecture.getIntroduce();
-        this.price = lecture.getPrice();
-        this.category = lecture.getCategory();
-        this.teacher = lecture.getTeacher();
-    }
-
 }

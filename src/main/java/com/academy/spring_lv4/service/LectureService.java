@@ -1,7 +1,7 @@
 package com.academy.spring_lv4.service;
 
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
-import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
+import com.academy.spring_lv4.dto.lecture.LectureTeacherResponseDto;
 import com.academy.spring_lv4.entity.Lecture;
 import com.academy.spring_lv4.entity.Teacher;
 import com.academy.spring_lv4.repository.LectureRepository;
@@ -16,7 +16,7 @@ public class LectureService {
     private final LectureRepository lectureRepository;
     private final TeacherRepository teacherRepository;
 
-    public LectureResponseDto createLecture(LectureRequestDto requestDto) {
+    public LectureTeacherResponseDto createLecture(LectureRequestDto requestDto) {
         // dto -> entity
         Lecture lecture = new Lecture(requestDto);
 
@@ -28,6 +28,15 @@ public class LectureService {
         lecture.setTeacher(teacher);
 
         // DB 저장 후 반환
-        return new LectureResponseDto(lectureRepository.save(lecture));
+        return new LectureTeacherResponseDto(lectureRepository.save(lecture));
+    }
+
+    public LectureTeacherResponseDto getLecture(Long id) {
+        return new LectureTeacherResponseDto(findLecture(id));
+    }
+
+    private Lecture findLecture(Long id) {
+        return (lectureRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("강의가 존재하지 않습니다.")));
     }
 }

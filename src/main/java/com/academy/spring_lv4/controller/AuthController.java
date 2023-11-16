@@ -23,7 +23,7 @@ public class AuthController {
 
     private final UserService userService;
 
-    @PostMapping("/user/signup")
+    @PostMapping("/users/signup")
     public ResponseEntity signup(@Valid @RequestBody SignupRequestDto requestDto, BindingResult bindingResult) {
         // Fields Validation
         if (bindingResult.hasErrors()) {

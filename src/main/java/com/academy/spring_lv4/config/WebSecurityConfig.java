@@ -71,7 +71,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // swagger
                         .requestMatchers("/teachers/**").hasAuthority(UserRoleEnum.Authority.ADMIN)
-//                        .requestMatchers("/lecture/admin/**").hasAuthority(UserRoleEnum.Authority.ADMIN)
+                        .requestMatchers("/lecture/admin/**").hasAuthority(UserRoleEnum.Authority.ADMIN)
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 
