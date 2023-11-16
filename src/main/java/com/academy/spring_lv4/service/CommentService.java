@@ -3,6 +3,7 @@ package com.academy.spring_lv4.service;
 import com.academy.spring_lv4.dto.comment.CommentRequestDto;
 import com.academy.spring_lv4.entity.Comment;
 import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.entity.User;
 import com.academy.spring_lv4.repository.CommentRepository;
 import com.academy.spring_lv4.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,12 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final LectureRepository lectureRepository;
 
-    public ResponseEntity registerComment(Long lectureId, CommentRequestDto requestDto) {
+    public ResponseEntity registerComment(Long lectureId, CommentRequestDto requestDto, User user) {
         Lecture lecture = lectureRepository.findLectureByLectureId(lectureId).orElseThrow(
                 () -> new IllegalArgumentException("해당 강의가 없습니다.")
         );
         System.out.println("lecture.getName() = " + lecture.getName());
-        Comment comment = new Comment(requestDto);
+        Comment comment = new Comment(requestDto, user);
 
         comment.setLecture(lecture);
         commentRepository.save(comment);

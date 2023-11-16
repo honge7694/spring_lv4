@@ -23,6 +23,6 @@ public class CommantController {
                                           @RequestBody CommentRequestDto requestDto,
                                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        return commentService.registerComment(lectureId, requestDto);
+        return commentService.registerComment(lectureId, requestDto, userDetails.getUser());
     }
 }
