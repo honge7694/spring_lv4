@@ -17,8 +17,8 @@ public class Lecture extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lectureId;
 
-    @Column(name = "teacher_id", nullable = false)
-    private Long teacherId;
+//    @Column(name = "teacher_id", nullable = false)
+//    private Long teacherId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -41,6 +41,7 @@ public class Lecture extends BaseTimeEntity {
         this.price = requestDto.getPrice();
         this.introduce = requestDto.getIntroduce();
         this.category = requestDto.getCategory();
+        this.teacher = requestDto.getTeacher();
     }
 
     public Lecture update(LectureRequestDto requestDto){
@@ -48,8 +49,12 @@ public class Lecture extends BaseTimeEntity {
         this.price = requestDto.getPrice();
         this.introduce = requestDto.getIntroduce();
         this.category = requestDto.getCategory();
-        this.teacherId = requestDto.getTeacherId();
+        //this.teacherId = requestDto.getTeacherId();
         return this;
+    }
+
+    public void setTeacher(Teacher teacher){
+        this.teacher = teacher;
     }
 
 }

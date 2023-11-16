@@ -1,6 +1,7 @@
 package com.academy.spring_lv4.dto.lecture;
 
 import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.entity.Teacher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class LectureResponseDto {
     private Long lectureId;
-    private Long teacherId;
     private String name;
     private int price;
     private String introduce;
@@ -19,7 +19,6 @@ public class LectureResponseDto {
 
     public LectureResponseDto(Lecture lecture){
         this.lectureId = lecture.getLectureId();
-        this.teacherId = lecture.getTeacherId();
         this.name = lecture.getName();
         this.price = lecture.getPrice();
         this.introduce = lecture.getIntroduce();

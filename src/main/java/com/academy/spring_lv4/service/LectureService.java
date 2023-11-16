@@ -2,6 +2,7 @@ package com.academy.spring_lv4.service;
 
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
+import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.entity.Lecture;
 import com.academy.spring_lv4.repository.LectureRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,8 +26,10 @@ public class LectureService {
     }
 
 
-    public LectureResponseDto findLecture(Long lectureId) {
-        return new LectureResponseDto(lectureRepository.findLectureByLectureIdOrderByCreatedAt(lectureId));
+    public TeacherResponseDto findLecture(Long lectureId) {
+        Lecture findLecture = lectureRepository.findLectureByLectureIdOrderByCreatedAt(lectureId);
+        if(findLecture == null){ throw new EntityNotFoundException("해당 강의를 찾을 수 없습니다."); }
+        return new TeacherResponseDto(findLecture.getTeacher());
     }
 
     @Transactional

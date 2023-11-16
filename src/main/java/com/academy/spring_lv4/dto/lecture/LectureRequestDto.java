@@ -1,5 +1,6 @@
 package com.academy.spring_lv4.dto.lecture;
 
+import com.academy.spring_lv4.entity.Teacher;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -20,7 +21,9 @@ public class LectureRequestDto {
     @NotBlank(message = "카테고리를 입력하세요.")
     private String category;
 
-    private Long teacherId;
+    //private Long teacherId;
+    @NotBlank(message = "강사정보를 입력하세요.")
+    private Teacher teacher;
 
 }
 

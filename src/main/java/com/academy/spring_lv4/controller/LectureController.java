@@ -2,6 +2,7 @@ package com.academy.spring_lv4.controller;
 
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
+import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.service.LectureService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class LectureController {
     }
 
     @GetMapping("/{lecture_id}")
-    public ResponseEntity<LectureResponseDto> lectureListOfTeacher(@PathVariable Long lecture_id){
+    public ResponseEntity<TeacherResponseDto> lectureListOfTeacher(@PathVariable Long lecture_id){
         return new ResponseEntity<>(lectureService.findLecture(lecture_id), HttpStatus.OK);
     }
 

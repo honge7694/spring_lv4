@@ -17,7 +17,7 @@ public class TeacherResponseDto {
         this.name = teacher.getName();
         this.career = teacher.getCareer();
         this.company = teacher.getCompany();
-        this.phoneNumber = teacher.getPhoneNumber();
+        //this.phoneNumber = teacher.getPhoneNumber();
         this.introduce = teacher.getIntroduce();
     }
 }
