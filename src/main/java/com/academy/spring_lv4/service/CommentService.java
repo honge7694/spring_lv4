@@ -27,10 +27,18 @@ public class CommentService {
         );
 
         Comment comment = new Comment(requestDto, user);
-
         comment.setLecture(lecture);
         commentRepository.save(comment);
 
         return ResponseEntity.status(HttpStatus.OK).body("댓글이 등록되었습니다.");
+    }
+
+    @Transactional
+    public ResponseEntity editComment(Long lectureId, Long commentId, CommentRequestDto requestDto, User user) {
+        Comment findcomment = commentRepository.findUserComment(lectureId, commentId, user.getId()).orElseThrow(
+                () -> new IllegalArgumentException("수정가능한 댓글이 없습니다.")
+        );
+        findcomment.update(requestDto);
+        return ResponseEntity.status(HttpStatus.OK).body("댓글이 수정되었습니다.");
     }
 }

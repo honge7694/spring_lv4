@@ -16,8 +16,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @Column(name="comment")
-    private String comment;
+    @Column(name="commentInfo")
+    private String commentInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="lecture_id", nullable = false)
@@ -28,7 +28,11 @@ public class Comment {
     private User user;
 
     public Comment(CommentRequestDto requestDto, User user) {
-        this.comment = requestDto.getComment();
+        this.commentInfo = requestDto.getComment();
         this.user = user;
+    }
+
+    public void update(CommentRequestDto requestDto){
+        this.commentInfo = requestDto.getComment();
     }
 }

@@ -13,7 +13,7 @@ public class CommentResponseDto {
     Long userId;
 
     public CommentResponseDto(Comment comment) {
-        this.comments = comment.getComment();
+        this.comments = comment.getCommentInfo();
         this.userId = comment.getUser().getId();
     }
 }

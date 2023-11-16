@@ -25,4 +25,12 @@ public class CommantController {
 
         return commentService.registerComment(lectureId, requestDto, userDetails.getUser());
     }
+
+    @PutMapping("/{lectureId}/comment/{commentId}")
+    public ResponseEntity editComment(@PathVariable Long lectureId,
+                            @PathVariable Long commentId,
+                            @RequestBody CommentRequestDto requestDto,
+                            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return commentService.editComment(lectureId, commentId, requestDto, userDetails.getUser());
+    }
 }
