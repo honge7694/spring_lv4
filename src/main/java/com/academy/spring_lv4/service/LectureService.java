@@ -46,7 +46,12 @@ public class LectureService {
     }
 
     public LectureExcludeNumberResponse getLecture(Long id) {
-        return new LectureExcludeNumberResponse(findLecture(id));
+        // 강의 찾기
+        Lecture lecture = findLecture(id);
+
+        // 좋아요 수 조회
+        int likes = likeRepository.countByLectureId(lecture);
+        return new LectureExcludeNumberResponse(lecture, likes);
     }
 
     @Transactional(readOnly = true)

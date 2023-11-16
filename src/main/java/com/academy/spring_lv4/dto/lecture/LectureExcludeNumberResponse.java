@@ -13,13 +13,15 @@ public class LectureExcludeNumberResponse {
     private LectureCategoryEnum category;
     private int price;
     private TeacherExcludeNumberResponseDto teacher; // 핸드폰 번호를 제외하기 위하여 (강의 상세 조회)
+    private int likes;
 
-    public LectureExcludeNumberResponse(Lecture lecture) {
+    public LectureExcludeNumberResponse(Lecture lecture, int likes) {
         this.id = lecture.getId();
         this.name = lecture.getName();
         this.introduce = lecture.getIntroduce();
         this.price = lecture.getPrice();
         this.category = lecture.getCategory();
         this.teacher = new TeacherExcludeNumberResponseDto(lecture.getTeacher());
+        this.likes = likes;
     }
 }
