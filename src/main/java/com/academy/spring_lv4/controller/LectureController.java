@@ -44,8 +44,6 @@ public class LectureController {
 //        return new ResponseEntity<>(lectureService.searchByCategory(category), HttpStatus.OK);
 //    }
 
-     //카테고리별 조회하기 강의명, 가격 등록일 기준 정렬 선택가능
-     //내림차순,오름차순 선택가능
     @GetMapping("/category/{category}")
     public Page<LectureResponseDto> searchByCategory(
             @PathVariable String category,

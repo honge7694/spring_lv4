@@ -1,19 +1,26 @@
 package com.academy.spring_lv4.relation;
 
+import com.academy.spring_lv4.dto.comment.CommentRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
+import com.academy.spring_lv4.entity.Comment;
 import com.academy.spring_lv4.entity.Lecture;
 import com.academy.spring_lv4.entity.Teacher;
+import com.academy.spring_lv4.repository.CommentRepository;
 import com.academy.spring_lv4.repository.LectureRepository;
 import com.academy.spring_lv4.repository.TeacherRepository;
+import com.academy.spring_lv4.service.CommentService;
 import com.academy.spring_lv4.service.LectureService;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @SpringBootTest
@@ -25,6 +32,10 @@ public class ManyToOneTest {
     LectureRepository lectureRepository;
     @Autowired
     LectureService lectureService;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    CommentService commentService;
 
     @Test
     @Rollback(value = false)
@@ -59,6 +70,20 @@ public class ManyToOneTest {
         TeacherResponseDto teacher = lectureService.findLecture(2L);
         System.out.println(lecture.getName() + "의 강사 이름 = " + teacher.getName());
     }
+
+    @Test
+    @Rollback(value = false)
+    @DisplayName("강의에 댓글 달기")
+    void test3(){
+        CommentRequestDto commentRequestDto = new CommentRequestDto();
+        commentRequestDto.setComment("해당 강의 잘들었습니다.");
+        ResponseEntity test = commentService.registerComment(6L, commentRequestDto);
+
+        System.out.println(test);
+
+    }
+
+
 }
 
 

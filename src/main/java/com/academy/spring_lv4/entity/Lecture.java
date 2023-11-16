@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Setter
 @Table(name="lecture")
@@ -35,6 +38,9 @@ public class Lecture extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name="teacher_id")
     private Teacher teacher;
+
+    @OneToMany(mappedBy = "lecture")
+    private List<Comment> commentList = new ArrayList<>();
 
     public Lecture(LectureRequestDto requestDto){
         this.name = requestDto.getName();
