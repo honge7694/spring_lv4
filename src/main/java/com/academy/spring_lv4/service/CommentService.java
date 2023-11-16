@@ -56,6 +56,18 @@ public class CommentService {
         return ResponseEntity.status(HttpStatus.OK).body("댓글을 수정하였습니다.");
     }
 
+    public ResponseEntity deleteComment(Long commentId, CommentRequestDto requestDto, Long userId) {
+        // 댓글 찾기
+        Comment comment = findByComment(commentId);
+
+        if (userId != comment.getUserId().getId()) {
+            throw new IllegalArgumentException("댓글을 작성한 유저가 아닙니다.");
+        }
+
+        commentRepository.delete(comment);
+        return ResponseEntity.status(HttpStatus.OK).body("댓글을 삭제하였습니다.");
+    }
+
     private Comment findByComment(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("댓글을 찾지 못했습니다."));

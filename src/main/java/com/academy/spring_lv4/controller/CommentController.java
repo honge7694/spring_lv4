@@ -21,10 +21,16 @@ public class CommentController {
         return commentService.createComment(lectureId, requestDto, userId);
     }
 
-    @PutMapping("{commentId}")
+    @PutMapping("/{commentId}")
     public ResponseEntity editComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Long userId = userDetails.getUser().getId();
         return commentService.editComment(commentId, requestDto, userId);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity deleteComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return commentService.deleteComment(commentId, requestDto, userId);
     }
 
 
