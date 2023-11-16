@@ -4,6 +4,9 @@ import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.service.LectureService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -36,10 +39,22 @@ public class LectureController {
         return new ResponseEntity<>(lectureService.updateLecture(lecture_id, requestDto), HttpStatus.OK);
     }
 
+//    @GetMapping("/category/{category}")
+//    public ResponseEntity<List<LectureResponseDto>> searchByCategory(@PathVariable String category){
+//        return new ResponseEntity<>(lectureService.searchByCategory(category), HttpStatus.OK);
+//    }
+
+     //카테고리별 조회하기 강의명, 가격 등록일 기준 정렬 선택가능
+     //내림차순,오름차순 선택가능
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<LectureResponseDto>> searchByCategory(@PathVariable String category){
-        return new ResponseEntity<>(lectureService.searchByCategory(category), HttpStatus.OK);
+    public Page<LectureResponseDto> searchByCategory(
+            @PathVariable String category,
+            @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo,
+            @RequestParam(required = false, defaultValue = "name", value = "orderby") String criteria,
+            @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort){
+        return lectureService.searchByCategory(category, pageNo, criteria, sort);
     }
+
 
     @DeleteMapping("/drop")
     public ResponseEntity dropLecture(@RequestParam("lecture_id") Long lectureId){

@@ -31,16 +31,16 @@ public class ManyToOneTest {
     @DisplayName("강의 등록 테스트(강사:1)")
     void test1(){
         Teacher teacher = new Teacher();
-        teacher.setName("선생님1");
-        teacher.setCareer(2);
+        teacher.setName("남궁성");
+        teacher.setCareer(12);
         teacher.setPhoneNumber("010-1111-1111");
         teacher.setCompany("스파르타");
         teacher.setIntroduce("스프링 강의 테스트");
 
         Lecture lecture = new Lecture();
-        lecture.setName("자바 스프링2");
-        lecture.setPrice(200000);
-        lecture.setCategory("IT교육");
+        lecture.setName("자바 스프링 실력");
+        lecture.setPrice(1300000);
+        lecture.setCategory("Spring");
         lecture.setIntroduce("스프링 테스트");
 
         lecture.setTeacher(teacher);
