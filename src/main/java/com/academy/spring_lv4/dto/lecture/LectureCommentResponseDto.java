@@ -4,6 +4,7 @@ import com.academy.spring_lv4.dto.comment.CommentResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.entity.Comment;
 import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.entity.LectureCategoryEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comments;
@@ -18,7 +19,7 @@ public class LectureCommentResponseDto {
     private Long lectureId;
     private String lectureName;
     private int lecturePrice;
-    private String lectureCategory;
+    private LectureCategoryEnum lectureCategory;
     private String lectureIntroduce;
 
     private TeacherResponseDto teacherResponseDto;

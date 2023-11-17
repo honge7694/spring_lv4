@@ -11,6 +11,11 @@
   주로 벌크 연산과 같이 적용
 
 
+4. java.sql.SQLException: Data truncated for column 'auth' at row 1
+DB에 넣으려는 값의 타입과 자바 모델 객체의 타입이 다를 때 발생
+
+
+
   벌크 연산이란?
   update, delete 문을 지원하며, Hibernate는 Insert 문을 지원한다.
   executeQuery() 메서드를  통해 벌크 연산을 수행한다.

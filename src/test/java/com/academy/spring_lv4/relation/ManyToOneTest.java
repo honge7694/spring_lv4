@@ -5,6 +5,7 @@ import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.entity.Comment;
 import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.entity.LectureCategoryEnum;
 import com.academy.spring_lv4.entity.Teacher;
 import com.academy.spring_lv4.repository.CommentRepository;
 import com.academy.spring_lv4.repository.LectureRepository;
@@ -51,7 +52,30 @@ public class ManyToOneTest {
         Lecture lecture = new Lecture();
         lecture.setName("자바 스프링 API");
         lecture.setPrice(400000);
-        lecture.setCategory("Spring");
+        lecture.setCategory(LectureCategoryEnum.SPRING);
+        lecture.setIntroduce("스프링 테스트");
+
+        lecture.setTeacher(teacher);
+
+        teacherRepository.save(teacher);
+        lectureRepository.save(lecture);
+    }
+
+    @Test
+    @Rollback(value = false)
+    @DisplayName("강의 등록 테스트(강사:1)")
+    void test2(){
+        Teacher teacher = new Teacher();
+        teacher.setName("남궁성");
+        teacher.setCareer(20);
+        teacher.setPhoneNumber("010-1111-1111");
+        teacher.setCompany("데이원컴퍼니");
+        teacher.setIntroduce("자바의정석");
+
+        Lecture lecture = new Lecture();
+        lecture.setName("자바의 정석");
+        lecture.setPrice(400000);
+        lecture.setCategory(LectureCategoryEnum.SPRING);
         lecture.setIntroduce("스프링 테스트");
 
         lecture.setTeacher(teacher);

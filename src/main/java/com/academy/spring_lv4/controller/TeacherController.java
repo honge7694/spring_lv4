@@ -33,7 +33,6 @@ public class TeacherController {
         return teacherService.getTeacher(id);
     }
 
-    @Secured(UserRoleEnum.Authority.MANAGER) // 매니저만 접근
     @PutMapping("/{id}")
     public TeacherResponseDto editTeacher(@PathVariable Long id, @RequestBody TeacherRequestDto requestDto) {
         return teacherService.editTeacher(id, requestDto);

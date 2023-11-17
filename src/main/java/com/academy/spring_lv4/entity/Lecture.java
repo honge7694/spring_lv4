@@ -31,8 +31,8 @@ public class Lecture extends BaseTimeEntity {
     @Column(name = "introduce")
     private String introduce;
 
-    @Column(name = "category", nullable = false)
-    private String category;
+    @Enumerated(value = EnumType.STRING)
+    private LectureCategoryEnum category;
 
     @ManyToOne
     @JoinColumn(name="teacher_id")
@@ -49,7 +49,6 @@ public class Lecture extends BaseTimeEntity {
         this.price = requestDto.getPrice();
         this.introduce = requestDto.getIntroduce();
         this.category = requestDto.getCategory();
-        this.teacher = requestDto.getTeacher();
     }
 
     public Lecture update(LectureRequestDto requestDto){
@@ -57,7 +56,6 @@ public class Lecture extends BaseTimeEntity {
         this.price = requestDto.getPrice();
         this.introduce = requestDto.getIntroduce();
         this.category = requestDto.getCategory();
-        //this.teacherId = requestDto.getTeacherId();
         return this;
     }
 

@@ -1,5 +1,6 @@
 package com.academy.spring_lv4.controller;
 
+import com.academy.spring_lv4.auth.Auth;
 import com.academy.spring_lv4.dto.lecture.LectureCommentResponseDto;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.academy.spring_lv4.entity.UserRoleEnum.ADMIN;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/lectures")
@@ -25,12 +28,14 @@ public class LectureController {
 
     private final LectureService lectureService;
 
+    @Auth(role = ADMIN)
     @PostMapping("/register")
     public ResponseEntity<LectureResponseDto> register(@RequestBody LectureRequestDto requestDto){
         return new ResponseEntity<>(lectureService.registerBook(requestDto), HttpStatus.OK);
 
     }
 
+    @Auth(role = ADMIN)
     @GetMapping("/{lecture_id}")
     public ResponseEntity<LectureCommentResponseDto> lectureListOfTeacher(@PathVariable Long lecture_id){
         return new ResponseEntity<>(lectureService.findLecture(lecture_id), HttpStatus.OK);

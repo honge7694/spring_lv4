@@ -1,6 +1,7 @@
 package com.academy.spring_lv4.dto.lecture;
 
 import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.entity.LectureCategoryEnum;
 import com.academy.spring_lv4.entity.Teacher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class LectureResponseDto {
     private String name;
     private int price;
     private String introduce;
-    private String category;
+    private LectureCategoryEnum category;
     private LocalDateTime createdAt;
 
     public LectureResponseDto(Lecture lecture){

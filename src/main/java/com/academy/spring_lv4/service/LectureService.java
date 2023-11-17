@@ -6,9 +6,11 @@ import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.entity.Comment;
 import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.entity.Teacher;
 import com.academy.spring_lv4.entity.User;
 import com.academy.spring_lv4.repository.CommentRepository;
 import com.academy.spring_lv4.repository.LectureRepository;
+import com.academy.spring_lv4.repository.TeacherRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,10 +34,16 @@ import java.util.List;
 public class LectureService {
     private static final int DEFAULT_PAGE_SIZE = 5;
     private final LectureRepository lectureRepository;
+    private final TeacherRepository teacherRepository;
     private final CommentRepository commentRepository;
 
     public LectureResponseDto registerBook(LectureRequestDto requestDto) {
         Lecture lecture = new Lecture(requestDto);
+        Teacher teacher = teacherRepository.findById(requestDto.getTeacherId())
+                .orElseThrow(() -> new IllegalArgumentException("강사가 존재하지 않습니다."));
+
+        // Lecture 엔터티에 강사 정보 설정
+        lecture.setTeacher(teacher);
         return new LectureResponseDto(lectureRepository.save(lecture));
     }
 
