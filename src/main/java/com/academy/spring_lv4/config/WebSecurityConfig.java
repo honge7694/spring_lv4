@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -70,6 +71,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll() // 메인 페이지 요청 허가
                         .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // swagger
+                        .requestMatchers(HttpMethod.GET, "/lectures/{id}").permitAll() // 선택한 강의 조회
+                        .requestMatchers(HttpMethod.GET, "/lectures/categories/{category}").permitAll() // 카테고리별 강의 조회
                         .requestMatchers("/teachers/**").hasAuthority(UserRoleEnum.Authority.ADMIN)
                         .requestMatchers("/lecture/admin/**").hasAuthority(UserRoleEnum.Authority.ADMIN)
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리

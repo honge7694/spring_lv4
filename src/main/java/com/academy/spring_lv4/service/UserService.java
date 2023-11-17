@@ -26,9 +26,11 @@ public class UserService {
         UserRoleEnum role = requestDto.getAuth();
 
         // 이메일 중복 확인
-        userRepository.findByEmail(email).ifPresent((existedUser) -> {throw new IllegalArgumentException("에러 발생");});
+        userRepository.findByEmail(email)
+                .ifPresent((existedUser) -> {throw new IllegalArgumentException("에러 발생");});
 
         // 유저 생성
+//      TODO: requestDto 수정 User user = new User(requestDto)
         User user = new User(email, password, gender, phoneNumber, address, role);
         userRepository.save(user);
 
