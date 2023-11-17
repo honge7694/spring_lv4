@@ -35,10 +35,22 @@ public class CommentService {
 
     @Transactional
     public ResponseEntity editComment(Long lectureId, Long commentId, CommentRequestDto requestDto, User user) {
-        Comment findcomment = commentRepository.findUserComment(lectureId, commentId, user.getId()).orElseThrow(
-                () -> new IllegalArgumentException("수정가능한 댓글이 없습니다.")
-        );
+        Comment findcomment = findUserComment(lectureId, commentId, user);
         findcomment.update(requestDto);
         return ResponseEntity.status(HttpStatus.OK).body("댓글이 수정되었습니다.");
+    }
+
+    @Transactional
+    public ResponseEntity deleteComment(Long lectureId, Long commentId, User user) {
+        findUserComment(lectureId, commentId, user);
+        commentRepository.deleteUserComment(lectureId, commentId, user.getId());
+        return ResponseEntity.status(HttpStatus.OK).body("댓글이 삭제되었습니다.");
+    }
+
+    public Comment findUserComment(Long lectureId, Long commentId, User user){
+        Comment comment = commentRepository.findUserComment(lectureId, commentId, user.getId()).orElseThrow(
+                () -> new IllegalArgumentException("조회되는 댓글이 없습니다.")
+        );
+        return comment;
     }
 }

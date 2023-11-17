@@ -33,4 +33,11 @@ public class CommantController {
                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.editComment(lectureId, commentId, requestDto, userDetails.getUser());
     }
+
+    @DeleteMapping("/{lectureId}/comment/{commentId}")
+    public ResponseEntity deleteComment(@PathVariable Long lectureId,
+                                        @PathVariable Long commentId,
+                                        @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.deleteComment(lectureId, commentId, userDetails.getUser());
+    }
 }
