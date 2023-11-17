@@ -1,6 +1,7 @@
 package com.academy.spring_lv4.relation;
 
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
+import com.academy.spring_lv4.entity.LectureCategoryEnum;
 import com.academy.spring_lv4.entity.Teacher;
 import com.academy.spring_lv4.repository.LectureRepository;
 import com.academy.spring_lv4.repository.TeacherRepository;
@@ -26,7 +27,7 @@ public class LectureTest {
     @DisplayName("페이징 테스트")
     void test(){
         Page<LectureResponseDto> responseDtoList =
-                lectureService.searchByCategory("Spring", 1, "name", "ASC");
+                lectureService.searchByCategory(LectureCategoryEnum.SPRING, 0, "name", "ASC");
 
         System.out.println(responseDtoList.get().toList());
     }

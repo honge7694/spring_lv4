@@ -4,10 +4,7 @@ import com.academy.spring_lv4.dto.lecture.LectureCommentResponseDto;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
-import com.academy.spring_lv4.entity.Comment;
-import com.academy.spring_lv4.entity.Lecture;
-import com.academy.spring_lv4.entity.Teacher;
-import com.academy.spring_lv4.entity.User;
+import com.academy.spring_lv4.entity.*;
 import com.academy.spring_lv4.repository.CommentRepository;
 import com.academy.spring_lv4.repository.LectureRepository;
 import com.academy.spring_lv4.repository.TeacherRepository;
@@ -63,7 +60,7 @@ public class LectureService {
     }
 
     @Transactional(readOnly = true)
-    public Page<LectureResponseDto> searchByCategory(String category, int pageNo, String criteria, String sort) {
+    public Page<LectureResponseDto> searchByCategory(LectureCategoryEnum category, int pageNo, String criteria, String sort) {
         // 페이징 처리
         Pageable pageable = (sort.equals("ASC")) ?
                 PageRequest.of(pageNo, DEFAULT_PAGE_SIZE, Sort.by(Sort.Direction.ASC, criteria))

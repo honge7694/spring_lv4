@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/lecture")
+@RequestMapping("/lectures")
 public class CommantController {
 
     private final CommentService commentService;

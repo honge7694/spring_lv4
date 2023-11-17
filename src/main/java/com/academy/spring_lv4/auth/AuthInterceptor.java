@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,10 +38,16 @@ public class AuthInterceptor implements HandlerInterceptor {
         UserRoleEnum userRole = userRepository.findByEmail(userEmail).orElse(null).getAuth();
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
-        if (hasAnnottion &&
-                handlerMethod.getMethodAnnotation(Auth.class).role() == userRole) {
-            return true;
+        final String method = request.getMethod();
+
+        if(method.equals(HttpMethod.POST) || method.equals(HttpMethod.PUT) || method.equals(HttpMethod.DELETE)){
+            if (hasAnnottion &&
+                    handlerMethod.getMethodAnnotation(Auth.class).role() == userRole) {
+                System.out.println("권한: "+userRole);
+                return true;
+            }
         }
+
         log.info("관리자만 접근 가능한 페이지 입니다.");
         response.sendError(401, "관리자만 접근 가능한 페이지 입니다.");
         return false;
