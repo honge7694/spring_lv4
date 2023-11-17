@@ -4,6 +4,8 @@ import com.academy.spring_lv4.dto.lecture.LectureCommentResponseDto;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
+import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.security.UserDetailsImpl;
 import com.academy.spring_lv4.service.LectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

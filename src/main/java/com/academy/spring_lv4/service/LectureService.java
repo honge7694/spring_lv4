@@ -6,6 +6,7 @@ import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.dto.teacher.TeacherResponseDto;
 import com.academy.spring_lv4.entity.Comment;
 import com.academy.spring_lv4.entity.Lecture;
+import com.academy.spring_lv4.entity.User;
 import com.academy.spring_lv4.repository.CommentRepository;
 import com.academy.spring_lv4.repository.LectureRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -63,10 +65,9 @@ public class LectureService {
 
         return lectures.map(LectureResponseDto::new);
     }
-
-
     public ResponseEntity deleteLecture(Long lectureId) {
         lectureRepository.deleteById(lectureId);
         return ResponseEntity.status(HttpStatus.OK).body(lectureId + "번 강의가 삭제되었습니다.");
     }
+
 }

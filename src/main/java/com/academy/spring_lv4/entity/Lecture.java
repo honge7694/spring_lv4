@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -19,9 +21,6 @@ public class Lecture extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lectureId;
-
-//    @Column(name = "teacher_id", nullable = false)
-//    private Long teacherId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -41,6 +40,9 @@ public class Lecture extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "lecture")
     private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL)
+    Set<Like> likes = new HashSet<>();
 
     public Lecture(LectureRequestDto requestDto){
         this.name = requestDto.getName();
