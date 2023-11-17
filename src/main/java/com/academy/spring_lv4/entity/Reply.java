@@ -19,17 +19,21 @@ public class Reply {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     @ManyToOne
     @JoinColumn(name = "comment_id")
-    private Comment comment;
+    private Comment commentId;
 
     private String contents;
 
     public Reply(User user, Comment comment, ReplyRequestDto requestDto) {
-        this.user = user;
-        this.comment = comment;
+        this.userId = user;
+        this.commentId = comment;
         this.contents = requestDto.getContents();
+    }
+
+    public void update(String contents) {
+        this.contents = contents;
     }
 }

@@ -21,4 +21,10 @@ public class ReplyController {
         return replyService.createReply(commentId, requestDto, userId);
     }
 
+    @PutMapping("/{replyId}")
+    public ResponseEntity editReply(@PathVariable Long replyId, @RequestBody ReplyRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return replyService.editReply(replyId, requestDto, userId);
+    }
+
 }
