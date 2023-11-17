@@ -5,10 +5,7 @@ import com.academy.spring_lv4.dto.lecture.LecturePureResponseDto;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.entity.*;
-import com.academy.spring_lv4.repository.LectureRepository;
-import com.academy.spring_lv4.repository.LikeRepository;
-import com.academy.spring_lv4.repository.TeacherRepository;
-import com.academy.spring_lv4.repository.UserRepository;
+import com.academy.spring_lv4.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -29,6 +26,7 @@ public class LectureService {
     private final TeacherRepository teacherRepository;
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
+    private final CommentRepository commentRepository;
 
     public LectureResponseDto createLecture(LectureRequestDto requestDto) {
         // dto -> entity
@@ -51,7 +49,11 @@ public class LectureService {
 
         // 좋아요 수 조회
         int likes = likeRepository.countByLectureId(lecture);
-        return new LectureExcludeNumberResponse(lecture, likes);
+
+        // 댓글 리스트
+        List<Comment> commentList = commentRepository.findByLectureId(lecture);
+
+        return new LectureExcludeNumberResponse(lecture, likes, commentList);
     }
 
     @Transactional(readOnly = true)

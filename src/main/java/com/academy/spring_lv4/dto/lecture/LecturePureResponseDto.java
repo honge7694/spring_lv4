@@ -5,7 +5,7 @@ import com.academy.spring_lv4.entity.LectureCategoryEnum;
 import lombok.Getter;
 
 @Getter
-public class LecturePureResponseDto {
+public class LecturePureResponseDto { // 카테고리 검색할 때 사용
     private Long id;
     private String name;
     private String introduce;

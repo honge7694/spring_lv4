@@ -8,7 +8,7 @@ import com.academy.spring_lv4.entity.Teacher;
 import lombok.Getter;
 
 @Getter
-public class LectureResponseDto {
+public class LectureResponseDto { // 강의 생성할 때 사용
     private Long id;
     private String name;
     private String introduce;
