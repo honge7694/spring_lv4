@@ -27,4 +27,10 @@ public class ReplyController {
         return replyService.editReply(replyId, requestDto, userId);
     }
 
+    @DeleteMapping("/{replyId}")
+    public ResponseEntity deleteReply(@PathVariable Long replyId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return replyService.deleteReply(replyId, userId);
+    }
+
 }

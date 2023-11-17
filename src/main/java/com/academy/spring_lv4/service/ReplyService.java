@@ -52,6 +52,20 @@ public class ReplyService {
         return ResponseEntity.status(HttpStatus.OK).body("대댓글을 수정하였습니다.");
     }
 
+    public ResponseEntity deleteReply(Long replyId, Long userId) {
+        // 유저 찾기
+        User user = findByUser(userId);
+
+        // 댓글 찾기
+        Reply reply = findByReply(replyId);
+
+        if (userId != reply.getUserId().getId()) {
+            throw new IllegalArgumentException("댓글을 작성한 유저가 아닙니다.");
+        }
+        replyRepository.delete(reply);
+        return ResponseEntity.status(HttpStatus.OK).body("대댓글을 삭제하였습니다.");
+    }
+
     public Comment findByComment(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("댓글을 찾을 수 없습니다."));
