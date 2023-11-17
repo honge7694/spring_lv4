@@ -1,0 +1,33 @@
+1. Unknown column '' in 'where clause'
+해당 컬럼을 where 조건 절에 사용 했을 때 발생함.
+해당 컬럼의 이름이 다른 이름이였음.
+
+2. java.lang.NullPointerException: Cannot invoke "com.academy.spring_lv4.repository.LikeRepository.findByUserAndLecture(com.academy.spring_lv4.entity.User, com.academy.spring_lv4.entity.Lecture)" because "this.likeRepository" is null
+해당 likeService에 repository가 private final로 선언되어있지 않았음.
+
+3. repository의 @Modifiying
+  @Query 어노테이션을 통해 INSERT, UPDATE, DELETE(SELECT 제외) 쿼리에서 사용하는 어노테이션
+  jpaRepository에서 제공하는 메서드 혹스 메서드 네이밍으로 만들어진 쿼리에는 적용되지 않는다 (findById ...)
+  주로 벌크 연산과 같이 적용
+
+
+  벌크 연산이란?
+  update, delete 문을 지원하며, Hibernate는 Insert 문을 지원한다.
+  executeQuery() 메서드를  통해 벌크 연산을 수행한다.
+  예) 나이가 70초과인 user을 삭제하고 싶을 때
+  jpa에서는 select 쿼리를 날려 영속성 컨텍스트에 엔티티를 저장 후 반환
+  반환 받은 엔티티 값을 변경 -> 커밋시점 변경 감지가 일어나며 update 날려 디비에 반영
+
+  나이가 70초과인 user라면 70건 더티채킹이 일어나고 delete 될 것
+
+  벌크연산은 여러 건 한 번에 수정
+  주의사항 : 벌크 연산은 영속성 컨텍스트를 무시하고 DB에 직접 쿼리 한다는 점
+  db에 반영된 변경이 영속성 컨텍스트에는 반영되지 않는다.
+  영속성 컨텍스트에 있는 엔티티와 db에 있는 테이블 값이 다를 수 있음(데이터 차이)
+    em.refresh() 사용 : 벌크 연산 수행 직후 해당 엔티티를 사용해야 된다면 em.refresh(entity)사용하여
+    DB에서 다시 엔티티 조회
+    벌크 연산 먼저 실행 : 연산 먼저 실행 후 조회 JPA와 JDBC를 함께 사용시 유용하다.
+    벌크 연산 수행 후 영속성 컨텍스트 초기화 clearAutomatically 옵션 사용
+
+   https://dev-coco.tistory.com/169
+   https://joojimin.tistory.com/71

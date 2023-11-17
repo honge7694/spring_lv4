@@ -23,7 +23,7 @@ public class LectureCommentResponseDto {
 
     private TeacherResponseDto teacherResponseDto;
     private List<CommentResponseDto> commentList = new ArrayList<>();
-
+    //TODO like 추가
     public LectureCommentResponseDto(Lecture lecture, List<Comment> comments) {
         this.lectureId = lecture.getLectureId();
         this.lectureName = lecture.getName();
