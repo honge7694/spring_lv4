@@ -56,7 +56,7 @@ public class CommentService {
         return ResponseEntity.status(HttpStatus.OK).body("댓글을 수정하였습니다.");
     }
 
-    public ResponseEntity deleteComment(Long commentId, CommentRequestDto requestDto, Long userId) {
+    public ResponseEntity deleteComment(Long commentId, Long userId) {
         // 댓글 찾기
         Comment comment = findByComment(commentId);
 
