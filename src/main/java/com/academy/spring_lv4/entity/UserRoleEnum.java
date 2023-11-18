@@ -1,8 +1,8 @@
 package com.academy.spring_lv4.entity;
 
 public enum UserRoleEnum {
-    STAFF(Authority.STAFF),  // STAFF 권한
-    MANAGE(Authority.MANAGER);  // MANAGER 권한
+    USER(Authority.USER),  // USER 권한
+    ADMIN(Authority.ADMIN);  // ADMIN 권한
 
     private final String authority;
 
@@ -15,7 +15,7 @@ public enum UserRoleEnum {
     }
 
     public static class Authority {
-        public static final String STAFF = "STAFF";
-        public static final String MANAGER = "MANAGER";
+        public static final String USER = "USER";
+        public static final String ADMIN = "ADMIN";
     }
 }

@@ -54,7 +54,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             // 응답 헤더에 토큰 추가
             response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
-
             // 응답 상태 코드 및 메시지 설정
             response.setContentType("application/json;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");

@@ -28,9 +28,9 @@ public class UserService {
 
         // 부서 별 권한 설정
         String part = requestDto.getPart();
-        UserRoleEnum auth = UserRoleEnum.MANAGE;
+        UserRoleEnum auth = UserRoleEnum.ADMIN;
         if (StringUtils.equals(part, "마케팅")) {
-            auth = UserRoleEnum.STAFF;
+            auth = UserRoleEnum.USER;
         }
         
         User user = new User(email, password, part, auth);
