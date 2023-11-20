@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
 import java.net.http.HttpHeaders;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Objects;
 
 import static com.academy.spring_lv4.jwt.JwtUtil.AUTHORIZATION_KEY;
@@ -33,21 +36,34 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         boolean hasAnnottion = checkAnnotation(handler, Auth.class);
-
+        if(hasAnnottion){
+            log.info("전체 조회 가능 게시물입니다.");
+            return false;
+        }
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserRoleEnum userRole = userRepository.findByEmail(userEmail).orElse(null).getAuth();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
+        GrantedAuthority auth = null;
+        while(iter.hasNext()){
+            auth = iter.next();
+            System.out.println(auth.getAuthority());
+        }
+
+        //UserRoleEnum userRole = userRepository.findByEmail(userEmail).orElse(null).getAuth();
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
         final String method = request.getMethod();
-
-        if(method.equals(HttpMethod.POST) || method.equals(HttpMethod.PUT) || method.equals(HttpMethod.DELETE)){
+        System.out.println(method);
+        System.out.println("USER 권한 :" + auth.getAuthority());
+        if(method.equals("PUT") || method.equals("DELETE") || method.equals("POST")){
             if (hasAnnottion &&
-                    handlerMethod.getMethodAnnotation(Auth.class).role() == userRole) {
-                System.out.println("권한: "+userRole);
+                    auth.getAuthority() == "ADMIN") {
+                System.out.println("권한: "+ auth.getAuthority());
                 return true;
             }
         }
-
         log.info("관리자만 접근 가능한 페이지 입니다.");
         response.sendError(401, "관리자만 접근 가능한 페이지 입니다.");
         return false;
@@ -65,6 +81,5 @@ public class AuthInterceptor implements HandlerInterceptor {
         return false;
 
     }
-
 
 }
