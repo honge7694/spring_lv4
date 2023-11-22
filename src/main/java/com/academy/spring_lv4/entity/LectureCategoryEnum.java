@@ -17,7 +17,7 @@ public enum LectureCategoryEnum {
     }
 
     public static class Category {
-        public static final String SPRING = "SPRING";
+        public static final String SPRING = "Spring";
         public static final String REACT = "React";
         public static final String NODE = "Node";
     }

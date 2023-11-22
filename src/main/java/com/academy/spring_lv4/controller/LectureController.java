@@ -5,6 +5,7 @@ import com.academy.spring_lv4.dto.lecture.LecturePureResponseDto;
 import com.academy.spring_lv4.dto.lecture.LectureRequestDto;
 import com.academy.spring_lv4.dto.lecture.LectureResponseDto;
 import com.academy.spring_lv4.entity.LectureCategoryEnum;
+import com.academy.spring_lv4.interceptor.AuthRole;
 import com.academy.spring_lv4.security.UserDetailsImpl;
 import com.academy.spring_lv4.service.LectureService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
 import java.util.List;
+
+import static com.academy.spring_lv4.entity.UserRoleEnum.ADMIN;
 
 @RestController
 @RequiredArgsConstructor
