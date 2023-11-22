@@ -1,6 +1,5 @@
 package com.academy.spring_lv4.config;
 
-import com.academy.spring_lv4.entity.UserRoleEnum;
 import com.academy.spring_lv4.jwt.JwtUtil;
 import com.academy.spring_lv4.security.JwtAuthenticationFilter;
 import com.academy.spring_lv4.security.JwtAuthorizationFilter;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -64,9 +62,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
-                        .requestMatchers("/").permitAll() // 메인 페이지 요청 허가
-                        //.requestMatchers(HttpMethod.GET, "/lectures/category/**").permitAll()
-                        //.requestMatchers( HttpMethod.GET,"/teachers/**").permitAll()
+                        //.requestMatchers("/products").access("@authorizationHandler().isAuthorization(authorizeHttpRequests, authentication)") // 메인 페이지 요청 허가
                         .requestMatchers("/api/**").permitAll()// '/api/user/'로 시작하는 요청 모두 접근 허가
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );

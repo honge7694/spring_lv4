@@ -33,42 +33,31 @@ import static com.academy.spring_lv4.jwt.JwtUtil.AUTHORIZATION_KEY;
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
     private final UserRepository userRepository;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        boolean hasAnnottion = checkAnnotation(handler, Auth.class);
-        if(hasAnnottion){
-            log.info("전체 조회 가능 게시물입니다.");
-            return false;
-        }
-        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("[ ----- AuthInterceptor : preHandle ----- ]");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
         Iterator<? extends GrantedAuthority> iter = authorities.iterator();
         GrantedAuthority auth = null;
+
         while(iter.hasNext()){
             auth = iter.next();
-            System.out.println(auth.getAuthority());
+            System.out.println("[USER AUTHENTICATION : " + auth.getAuthority() + " ]");
         }
 
-        //UserRoleEnum userRole = userRepository.findByEmail(userEmail).orElse(null).getAuth();
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-
         final String method = request.getMethod();
-        System.out.println(method);
-        System.out.println("USER 권한 :" + auth.getAuthority());
-        if(method.equals("PUT") || method.equals("DELETE") || method.equals("POST")){
-            if (hasAnnottion &&
-                    auth.getAuthority() == "ADMIN") {
-                System.out.println("권한: "+ auth.getAuthority());
-                return true;
-            }
+        System.out.println("[request method : " + method + " ]");
+        if(auth.getAuthority() == "ADMIN"){
+            System.out.println(" [ " + SecurityContextHolder.getContext().getAuthentication().getName() + "관리자 입니다. ]");
+            return true;
         }
         log.info("관리자만 접근 가능한 페이지 입니다.");
         response.sendError(401, "관리자만 접근 가능한 페이지 입니다.");
         return false;
     }
-
     private boolean checkAnnotation(Object handler, Class<Auth> authClass) {
         if (handler instanceof HandlerMethod) {
             return true;
